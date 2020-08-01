@@ -1,0 +1,177 @@
+Users
+
+List
+Search Single
+-ve - notfound
+		Create 
+Update PUT
+Update Patch
+Delete
+Login
+dELAYED RESPONSE
+
+
+Resource
+
+List
+Single
+Not Found
+
+package GradleRestAAssured;
+
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.RestAssured.*;
+import io.restassured.matcher.RestAssuredMatchers.*;
+import io.restassured.response.Response;
+
+import org.hamcrest.Matchers.*;
+
+public class TestAService {
+
+	@Test
+	public void testUsersList() {
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users?page=2")
+							;
+		
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void testSingleUser() { //not found 23
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users/2")
+							;
+		
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void testListResources() { //not found
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/unknown")
+							;
+		
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void testSingleResource() { //not found
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/unknown/2")
+							;
+		
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_AddResource() { //not found
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users")
+							;
+		{
+		    "name": "morpheus",
+		    "job": "leader"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_UpdateResource() { //not found put
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users/2")
+							;
+		{
+		    "name": "morpheus",
+		    "job": "zion resident"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_PatchResource() { //not found patch
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users/2")
+							;
+		{
+		    "name": "morpheus",
+		    "job": "zion resident"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_DeleteResource() { //not found delete
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users/2")
+							;
+		
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_RegisterResource() { //not found post
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/register/")
+							;
+		{
+		    "email": "eve.holt@reqres.in",
+		    "password": "pistol"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_RegisterResource() { //400
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/register/")
+							;
+		{
+		    "email": "sydney@fife"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_	Login() { //400
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/login/")
+							;
+		{
+		    "email": "eve.holt@reqres.in",
+		    "password": "cityslicka"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_Login() { //400
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/login/")
+							;
+		{
+		    "email": "peter@klaven"
+		}
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+	public void test_DelayedResponse() { //get
+		RestAssured.baseURI = "https://reqres.in";
+		Response resp = RestAssured
+							.get("/api/users?delay=3")
+		
+		System.out.println( resp.jsonPath().getString("data.email") );
+	}
+	
+}
+
+
+LEARN REST ASSURED
+====================
+
+Return response value from body as JSON Path --> object.obj
+hasItems()
+is()
